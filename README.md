@@ -1,2 +1,3 @@
-# FinessTech2019
+# FinTech2019 
 Hello World! We are devs from Syberia
+# Готово
