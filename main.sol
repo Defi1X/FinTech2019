@@ -19,13 +19,12 @@ contract Main {
         balances[To]            += amount;
     } 
     
-    function gift(address To, uint amount) payable{
+    function gift(address To, uint amount){
        // msg.value 
         balances[To] += amount;
     }
     
-    function BuyCharacter(){
-        
+    function BuyCharacter() payable{
         
     }
     
@@ -34,7 +33,7 @@ contract Main {
         var Ag = GetRandNum();
         var In = GetRandNum();
         
-        
+        // will be here 
     }
     
     function GetRandNum() returns (uint){
