@@ -12,7 +12,9 @@ contract Main {
     mapping (address => uint) public balances; 
     mapping (uint    => mapping (uint => string)) public Characters;
     mapping (uint    => address) public Owners;
-   // mapping (uint    => uint)
+    mapping (uint    => uint) public sellBoard;
+    mapping (uint    => uint) public sellBoardPrices;
+    
     
     
     
@@ -28,10 +30,12 @@ contract Main {
     }
     
     function BuyByID(uint number) payable public{
-        require(msg.value >= 30);
+        require(msg.value >= sellBoardPrices[number]);
+        if(sellBoard[number] == 0) return;
+        
         address lastOwner = Owners[number];
         lastOwner.transfer(msg.value);
-        Owners[number] = msg.sender; 
+        Owners[number] = msg.sender;
     }
     
     function SellByID(uint number) public{
