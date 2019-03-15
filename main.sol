@@ -1,8 +1,8 @@
 pragma solidity ^0.4.2; 
 
 contract Main {
-    address public minter;
-    function Main() public {
+    address minter;
+    function Main() public payable {
         minter = msg.sender;
     }
     uint public QOC = 0;
@@ -10,8 +10,9 @@ contract Main {
     event print(string text, uint value);
     
     mapping (address => uint) public balances; 
-    mapping (uint => mapping (uint => string)) public Characters;
-    mapping (uint => address) public Owners;
+    mapping (uint    => mapping (uint => string)) public Characters;
+    mapping (uint    => address) public Owners;
+   // mapping (uint    => uint)
     
     
     
@@ -33,12 +34,29 @@ contract Main {
         Owners[number] = msg.sender; 
     }
     
-    function SellByID(uint number) payable public{
+    function SellByID(uint number) public{
         require(msg.sender == Owners[number]);
         var seller = msg.sender;
         Owners[number] = minter;
         seller.transfer(30);
         
+    }
+
+    
+    function Fight(uint player1, uint player2) public returns (uint){
+        var St1 = Characters[player1][1];
+        var Ag1 = Characters[player1][2];
+        var In1 = Characters[player1][3];
+        var Power1 = (stringToUint(St1) + stringToUint(Ag1)) * stringToUint(In1);
+        
+        var St2 = Characters[player2][1];
+        var Ag2 = Characters[player2][2];
+        var In2 = Characters[player2][3];
+        var Power2 = (stringToUint(St2) + stringToUint(Ag2)) * stringToUint(In2);
+        
+        if(Power1 >  Power2) return 1;
+        if(Power1 <  Power1) return 2;
+        if(Power1 == Power2) return 0;
     }
     
     function BuyNewCharacter() payable public{
@@ -83,7 +101,7 @@ contract Main {
         return uint2str(rand); 
     }
     
-    // StackOverflow function
+    // StackOverflow functions
     function uint2str(uint i) private returns (string){
         if (i == 0) return "0";
         uint j = i;
@@ -112,4 +130,17 @@ contract Main {
             b[i] = byte(uint8(uint(x) / (2**(8*(19 - i)))));
         return string(b);
     }
+    
+    function stringToUint(string s) private constant returns (uint result) {
+        bytes memory b = bytes(s);
+        uint i;
+        result = 0;
+        for (i = 0; i < b.length; i++) {
+            uint c = uint(b[i]);
+            if (c >= 48 && c <= 57) {
+                result = result * 10 + (c - 48);
+            }
+        }
+    }
+    
 }
