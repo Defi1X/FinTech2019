@@ -18,20 +18,21 @@ contract Main {
 
     
     function BuyByID(uint number) payable public{
-        require(msg.value >= sellBoardPrices[number]);
-        if(sellBoard[number] == 0) return;
+        require(msg.value >= sellBoardPrices[number+1]);
+        if(sellBoard[number+1] == 0) return;
         
         address lastOwner = Owners[number];
         lastOwner.transfer(msg.value);
         Owners[number] = msg.sender;
     }
     
-    //## NOT WORKING
-    function SellByID(uint number) public{
+    
+    function SellByID(uint number, uint priceForSell) public{
         require(msg.sender == Owners[number]);
         var seller = msg.sender;
-        Owners[number] = minter;
-        seller.transfer(PRICE);
+        
+        sellBoard[number+1]       = 1;
+        sellBoardPrices[number+1] = priceForSell;
         
     }
 
