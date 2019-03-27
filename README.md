@@ -1,4 +1,4 @@
-## FinTech2019 
+## FinTech2019; Fully complited!
   Tasks:
   1. ✅ Buying characters
   2. ✅ Change price for buying
@@ -7,4 +7,5 @@
   5. ✅ Change name of character
   6. ✅ Comparison of two players
   7. ✅ Function for buying character from SellBoard
-  8. ❌Function for selling character at SellBoard  
+  8. ✅Function for selling character at SellBoard  
+  
