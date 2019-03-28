@@ -18,21 +18,20 @@ contract Main {
 
     
     function BuyByID(uint number) payable public{
-        require(msg.value >= sellBoardPrices[number+1]);
-        if(sellBoard[number+1] == 0) return;
+        require(msg.value >= sellBoardPrices[number]);
+        if(sellBoard[number] == 0) return;
         
         address lastOwner = Owners[number];
         lastOwner.transfer(msg.value);
         Owners[number] = msg.sender;
     }
     
-    
-    function SellByID(uint number, uint priceForSell) public{
+    //## NOT WORKING
+    function SellByID(uint number) public{
         require(msg.sender == Owners[number]);
         var seller = msg.sender;
-        
-        sellBoard[number+1]       = 1;
-        sellBoardPrices[number+1] = priceForSell;
+        Owners[number] = minter;
+        seller.transfer(PRICE);
         
     }
 
@@ -70,11 +69,11 @@ contract Main {
         
         QOC += 1;
         
-        Characters[QOC - 1][0] = Name;
-        Characters[QOC - 1][1] = St;
-        Characters[QOC - 1][2] = Ag;
-        Characters[QOC - 1][3] = In;
-        Owners[QOC - 1] = Owner;
+        Characters[QOC][0] = Name;
+        Characters[QOC][1] = St;
+        Characters[QOC][2] = Ag;
+        Characters[QOC][3] = In;
+        Owners[QOC] = Owner;
     }
     
     function renameCharacter(uint id, string newName) public{
